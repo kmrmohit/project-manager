@@ -21,3 +21,9 @@ code {
   margin: auto;
   padding: 0px 16px;
 }
+
+@media screen and (max-width: 600px) {
+  .App {
+    width: 100%;
+  }
+}
