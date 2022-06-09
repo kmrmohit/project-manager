@@ -2,6 +2,7 @@
   "name": "project-manager",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://kmrmohit.github.io/project-manager/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -19,7 +20,9 @@
     "zustand": "^4.0.0-rc.1"
   },
   "scripts": {
+    "predeploy": "npm run build",
     "start": "react-scripts start",
+    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -43,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.25"
+    "@types/styled-components": "^5.1.25",
+    "gh-pages": "^4.0.0"
   }
 }
