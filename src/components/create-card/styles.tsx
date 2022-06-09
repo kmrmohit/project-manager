@@ -10,16 +10,16 @@ export const InputContainer = styled.div`
 `;
 
 export const StyledButton = styled.button`
-    border-radius: 4px;
-    max-width: 72px;
-    background: black;
-    color: white;
-    border: none;
-    min-height: 32px;
-    margin-top: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    &:hover {
-        opacity: 0.7;
-    }
+  border-radius: 4px;
+  max-width: 72px;
+  background: black;
+  color: white;
+  border: none;
+  min-height: 32px;
+  margin-top: 8px;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  transition: all 0.3s ease-in-out;
+  &:hover:not(:disabled) {
+    opacity: 0.7;
+  }
 `;

@@ -47,12 +47,13 @@ interface ButtonProps {
   title: string;
   onClick?: () => void;
   className?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = function (props) {
-  const { title, onClick, className = "" } = props;
+  const { title, onClick, className = "", disabled = false } = props;
   return (
-    <StyledButton onClick={onClick} className={className}>
+    <StyledButton onClick={onClick} className={className} disabled={disabled}>
       {title}
     </StyledButton>
   );
@@ -83,8 +84,10 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
   }, []);
 
   const onSubmit = React.useCallback(() => {
-    props.onAddCard(props.type, inputValues);
-    clearValues();
+    if (inputValues.title) {
+      props.onAddCard(props.type, inputValues);
+      clearValues();
+    }
   }, [inputValues]);
 
   React.useEffect(() => {
@@ -140,7 +143,7 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
   return (
     <div className={props.className}>
       {element}
-      <Button title={title} onClick={onSubmit} />
+      <Button title={title} onClick={onSubmit} disabled={!inputValues.title} />
     </div>
   );
 };
