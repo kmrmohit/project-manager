@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import CardGroup from "./components/card-group";
+import { useStore } from "./store";
+import { CardGroupsContainer, Header } from "./styles";
 
 function App() {
+  const { data } = useStore();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header>Dashboard</Header>
+      <CardGroupsContainer>
+        {data.map((obj, id) => (
+          <CardGroup key={id} {...obj} id={id} />
+        ))}
+        <CardGroup id={data.length + 1} cards={[]} />
+      </CardGroupsContainer>
     </div>
   );
 }
