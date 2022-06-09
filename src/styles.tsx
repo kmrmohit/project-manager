@@ -17,7 +17,8 @@ export const CardGroupsContainer = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 600px) {
     flex-direction: column;
+    gap: 32px;
   }
 `;

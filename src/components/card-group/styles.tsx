@@ -6,6 +6,9 @@ export const Container = styled.div`
   padding: 16px;
   height: fit-content;
   border-radius: 8px;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const Title = styled.h3`
