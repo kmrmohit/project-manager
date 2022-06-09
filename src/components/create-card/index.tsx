@@ -1,4 +1,5 @@
 import React from "react";
+import { ENTER_KEYCODE } from "../../constants";
 import { InputContainer, StyledButton } from "./styles";
 
 interface InputBoxProps {
@@ -72,6 +73,7 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
     title: "",
     description: "",
   });
+  const inputRef = React.useRef<HTMLDivElement>(null);
 
   const clearValues = React.useCallback(() => {
     setInputValues({
@@ -80,11 +82,31 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
     });
   }, []);
 
+  const onSubmit = React.useCallback(() => {
+    props.onAddCard(props.type, inputValues);
+    clearValues();
+  }, [inputValues]);
+
+  React.useEffect(() => {
+    function enterKeyAction(e: KeyboardEvent) {
+      e.stopPropagation();
+      if (
+        e.keyCode === ENTER_KEYCODE &&
+        inputRef.current &&
+        inputRef.current.contains(e.target as any)
+      ) {
+        onSubmit();
+      }
+    }
+    window.addEventListener("keyup", enterKeyAction);
+    return () => window.removeEventListener("keyup", enterKeyAction);
+  }, [onSubmit]);
+
   let element, title;
   switch (props.type) {
     case "card-item":
       element = (
-        <InputContainer>
+        <InputContainer ref={inputRef}>
           <InputBox
             label="Enter title"
             value={inputValues.title}
@@ -104,7 +126,7 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
       break;
     case "card-group":
       element = (
-        <InputContainer>
+        <InputContainer ref={inputRef}>
           <InputBox
             label="Enter list title"
             value={inputValues.title}
@@ -118,13 +140,7 @@ const InputCard: React.FC<ComponentProps> = function (props: ComponentProps) {
   return (
     <div className={props.className}>
       {element}
-      <Button
-        title={title}
-        onClick={() => {
-          props.onAddCard(props.type, inputValues);
-          clearValues();
-        }}
-      />
+      <Button title={title} onClick={onSubmit} />
     </div>
   );
 };
